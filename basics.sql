@@ -79,3 +79,104 @@ ADD
 -- Rename the columns from the database
 ALTER TABLE
 PLAYER RENAME COLUMN 'jerrsy_num' TO 'jer_num'
+
+-- How to calculate the sum of the price of blue products
+SELECT
+  name,
+  sum(price)
+FROM
+  PRODUCT
+WHERE
+  name LIKE "%Blue%"
+-- we can use muliplie condition we get less then 1000 price in clothing
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  category = 'Clothing'
+  AND price < 1000;
+
+-- Using the multple condition to get the paricula values using logical operator
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  brand = 'Britannia'
+  AND price < 20
+  AND rating > 4.0;
+-- Using anothe logical operation or which condition true they returns
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  name = 'Chocolate Cake'
+  OR name = 'Strawberry Cake';
+
+-- Multiple or logical operator we get the particuler brands
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  brand = 'Roadster'
+  OR brand = 'Nike'
+  OR brand = 'Puma';
+
+
+-- Using the Not operator 
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  NOT brand LIKE "Denim";
+-- APply the multplie condition to the database 
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  (
+    brand = 'Redmi'
+    AND rating > 4.0
+  )
+  OR brand = 'OnePlus';
+
+-- To apply the multiple condition which return the not jeans itemn only returs clothing
+
+SELECT
+  *
+FROM
+  PRODUCT
+WHERE
+  category = 'Clothing'
+  AND NOT name LIKE "%Jeans%";
+
+
+SELECT
+  name,
+  category,
+  sum(price)
+FROM
+  PRODUCT
+WHERE
+  name = "Blue Shirt"
+  AND category = 'Clothing'
+  AND NOT name LIKE "%Jeans%";
+
+-- To satsifie the two condition and not return like shirts
+SELECT
+  name,
+  category,
+  brand
+FROM
+  PRODUCT
+WHERE
+  (
+    brand = "Puma"
+    OR brand = 'Denim'
+  )
+  AND NOT name LIKE "%Shirt%";
