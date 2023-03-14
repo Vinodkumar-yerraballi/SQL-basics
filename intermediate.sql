@@ -105,3 +105,11 @@ FROM
   SELECT student.roll_number,student.name FROM
 student_information student, faculty_information fi
 WHERE student.advisor=fi.employee_id and (fi.gender='M' and fi.salary >15000 or fi.gender='F' and fi.salary >20000);
+
+-- 
+SELECT price_today.stock_code
+from price_today
+INNER JOIN price_tomorrow  on
+price_today.stock_code=price_tomorrow.stock_code
+WHERE price_tomorrow.price>price_today.price
+ORDER by stock_code ASC ;
