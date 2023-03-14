@@ -97,3 +97,11 @@ SELECT
   brand
 FROM
   PRODUCT;
+  
+  
+  
+--  SQL question on hackerrank
+  
+  SELECT student.roll_number,student.name FROM
+student_information student, faculty_information fi
+WHERE student.advisor=fi.employee_id and (fi.gender='M' and fi.salary >15000 or fi.gender='F' and fi.salary >20000);
