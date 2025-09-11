@@ -6,3 +6,10 @@ group by city
 having city_names >5
 order by city asc, city_names asc
 limit 5 ;
+
+-- Write the query first name start with a and weight between 65 to 70 and gender like male and city name should be hamilton
+select * from patients
+where weight between 65 and 75
+and first_name like 'a%'
+and gender='M'
+and city='Hamilton'
