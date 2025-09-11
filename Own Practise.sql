@@ -7,6 +7,10 @@ having city_names >5
 order by city asc, city_names asc
 limit 5 ;
 
+-- To remove the ducplicate values
+select distinct company_name
+from Works;
+
 -- Write the query first name start with a and weight between 65 to 70 and gender like male and city name should be hamilton
 select * from patients
 where weight between 65 and 75
