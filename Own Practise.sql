@@ -17,3 +17,10 @@ where weight between 65 and 75
 and first_name like 'a%'
 and gender='M'
 and city='Hamilton'
+-- 
+select m.match_id,m.player_1,m.player_2,m.winner,m.match_date,p.score
+from Matches m
+inner join Players p
+on m.winner=p.player_name
+order by match_date desc
+limit 5 ;
