@@ -24,3 +24,17 @@ inner join Players p
 on m.winner=p.player_name
 order by match_date desc
 limit 5 ;
+
+
+with salary_rank as (select 
+    id,
+    first_name,
+    last_name,
+    department_id,
+    salary,
+    ROW_NUMBER() OVER (PARTITION BY id order by salary desc) as ranks_value
+from
+ms_employee_salary)
+select id,first_name,last_name,department_id,salary
+from salary_rank
+where ranks_value = 1;
