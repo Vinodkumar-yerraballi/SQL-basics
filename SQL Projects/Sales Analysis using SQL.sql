@@ -84,3 +84,63 @@ SELECT * FROM avg_sales
 GROUP by month
 ORDER by sales desc;
 
+--  Advanced queries
+-- Find the top 10 salespeople in the data
+
+SELECT sales_person,country,
+sum(amount) as total_sales,
+rank() over (ORDER by sum(amount) desc) as sales_rank
+FROM ChocolateSales
+GROUP by sales_person,country;
+
+
+-- top 3 sales personnel with total sales amount
+
+with top_sales_person as (
+  SELECT country,sales_person,
+  sum(amount) as total_sales ,
+  dense_rank() over(partition by country ORDER by sum(amount) desc) as the_rank
+  FROM ChocolateSales
+  GROUP by sales_person,country
+
+)
+SELECT * FROM top_sales_person
+WHERE the_rank <=3;
+
+
+-- Checking the profit on a month-wise basis 
+WITH month_rev AS
+(
+SELECT
+    SUBSTR(date,4,3) AS month,
+
+    CASE SUBSTR(date,4,3)
+        WHEN 'Jan' THEN 1
+        WHEN 'Feb' THEN 2
+        WHEN 'Mar' THEN 3
+        WHEN 'Apr' THEN 4
+        WHEN 'May' THEN 5
+        WHEN 'Jun' THEN 6
+        WHEN 'Jul' THEN 7
+        WHEN 'Aug' THEN 8
+        WHEN 'Sep' THEN 9
+        WHEN 'Oct' THEN 10
+        WHEN 'Nov' THEN 11
+        WHEN 'Dec' THEN 12
+    END AS month_no,
+
+    SUM(amount) AS total_sales
+
+FROM ChocolateSales
+
+GROUP BY month
+)
+
+SELECT
+    month,
+    total_sales,
+    LAG(total_sales) OVER(ORDER BY month_no) AS previous_month,
+    total_sales -
+    LAG(total_sales) OVER(ORDER BY month_no) AS profit
+FROM month_rev
+ORDER BY month_no;
